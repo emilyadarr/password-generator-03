@@ -41,11 +41,11 @@ function getRequirements() {
 
   // object with all password requirements
   var passwordEntries = {
-    promptPasswordLength: promptPasswordLength,
-    confirmLowercaseLetters: confirmLowercaseLetters,
-    confirmUppercaseLetters: confirmUppercaseLetters,
-    confirmNumeric: confirmNumeric,
-    confirmSpecialChars: confirmSpecialChars,
+    PasswordLength: promptPasswordLength,
+    hasLowercaseLetters: confirmLowercaseLetters,
+    hasUppercaseLetters: confirmUppercaseLetters,
+    hasNumeric: confirmNumeric,
+    hasSpecialChars: confirmSpecialChars,
   };
   return passwordEntries;
 };
@@ -54,29 +54,29 @@ function getRequirements() {
 function generatePassword() {
   var requirements = getRequirements();
 
-  if (requirements.confirmLowercaseLetters) {
+  if (requirements.hasLowercaseLetters) {
     possibleChars = possibleChars.concat(lowercaseLetters);
   }
 
-  if (requirements.confirmUppercaseLetters) {
+  if (requirements.hasUppercaseLetters) {
     possibleChars = possibleChars.concat(uppercaseLetters);
   }
 
-  if (requirements.confirmNumeric) {
+  if (requirements.hasNumeric) {
     possibleChars = possibleChars.concat(numeric)
   }
 
-  if (requirements.confirmSpecialChars) {
+  if (requirements.hasSpecialChars) {
     possibleChars = possibleChars.concat(specialChars)
   }
   // for loop to get random characters from possibleChars
-  for (var i = 0; i < requirements.promptPasswordLength; i++) {
+  for (var i = 0; i < requirements.PasswordLength; i++) {
     var randomPassword = Math.floor(Math.random() * possibleChars.length);
     password += possibleChars[randomPassword];
   }
   console.log(password);
   return password;
-  
+
 };
 
 
