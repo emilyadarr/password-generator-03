@@ -4,7 +4,8 @@ var specialChars = ["!","@","#","$","%","^","&","*","-","+","?"]
 var lowercaseLetters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 var uppercaseLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 var numeric = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-var possibleChars = [""]
+var possibleChars = []
+var password = ""
 
 //ask for requirements
 function getRequirements() {
@@ -68,12 +69,13 @@ function generatePassword() {
   if (requirements.confirmSpecialChars) {
     possibleChars = possibleChars.concat(specialChars)
   }
-  //TODO: LEFT OFF HERE
+  // for loop to get random characters from possibleChars
   for (var i = 0; i < requirements.promptPasswordLength; i++) {
     var randomPassword = Math.floor(Math.random() * possibleChars.length);
-    password += possibleChars.substring(randomPassword, randomPassword +1);
+    password += possibleChars[randomPassword];
   }
   console.log(password);
+  return password;
 };
 
 // function getRandom(arr) {
