@@ -4,3 +4,4 @@ Users with sensitive data can randomly generate a password based on criteria sel
 
 https://emilyadarr.github.io/password-generator-03/
 
+![This is an image](https://github.com/emilyadarr/password-generator-03/blob/main/assets/images/Screenshot.png?raw=true)
