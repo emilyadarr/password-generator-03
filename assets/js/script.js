@@ -5,9 +5,9 @@ var lowercaseLetters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n",
 var uppercaseLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 var numeric = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 var possibleChars = []
-var password = ""
+var password = []
 
-//ask for requirements
+// Ask for requirements
 function getRequirements() {
   var promptPasswordLength = window.prompt("How long would you like your password? Please select a number between 8 and 128.");
   localStorage.setItem("passwordLength", promptPasswordLength)
@@ -50,35 +50,49 @@ function getRequirements() {
   return passwordEntries;
 };
 
-//generate password
+// Generate password
 function generatePassword() {
   var requirements = getRequirements();
+  var everyCharacterSelected = []
 
   if (requirements.hasLowercaseLetters) {
     possibleChars = possibleChars.concat(lowercaseLetters);
+    everyCharacterSelected.push(getRandom(lowercaseLetters))
   }
 
   if (requirements.hasUppercaseLetters) {
     possibleChars = possibleChars.concat(uppercaseLetters);
+    everyCharacterSelected.push(getRandom(uppercaseLetters))
   }
 
   if (requirements.hasNumeric) {
-    possibleChars = possibleChars.concat(numeric)
+    possibleChars = possibleChars.concat(numeric);
+    everyCharacterSelected.push(getRandom(numeric))
   }
 
   if (requirements.hasSpecialChars) {
-    possibleChars = possibleChars.concat(specialChars)
+    possibleChars = possibleChars.concat(specialChars);
+    everyCharacterSelected.push(getRandom(specialChars))
   }
   // for loop to get random characters from possibleChars
   for (var i = 0; i < requirements.PasswordLength; i++) {
-    var randomPassword = Math.floor(Math.random() * possibleChars.length);
-    password += possibleChars[randomPassword];
+    var randomPassword = getRandom(possibleChars);
+    password.push(randomPassword)
   }
-  console.log(password);
-  return password;
 
+  for(var i=0; i < everyCharacterSelected.length; i++) {
+    password[i] = everyCharacterSelected[i];
+  }
+  
+  var finalPassword = password.join("");
+  console.log(finalPassword);
+  return finalPassword;
+
+  function getRandom(arr) {
+    var random = Math.floor(Math.random() * arr.length)
+    return arr[random]
+  }
 };
-
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -93,21 +107,3 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-
-
-// GIVEN I need a new, secure password
-// WHEN I click the button to generate a password
-// THEN I am presented with a series of prompts for password criteria
-// WHEN prompted for password criteria
-// THEN I select which criteria to include in the password
-// WHEN prompted for the length of the password
-// THEN I choose a length of at least 8 characters and no more than 128 characters
-// WHEN asked for character types to include in the password
-// THEN I confirm whether or not to include lowercase, uppercase, numeric, and/or special characters
-// WHEN I answer each prompt
-// THEN my input should be validated and at least one character type should be selected
-// WHEN all prompts are answered
-// THEN a password is generated that matches the selected criteria
-// WHEN the password is generated
-// THEN the password is either displayed in an alert or written to the page
